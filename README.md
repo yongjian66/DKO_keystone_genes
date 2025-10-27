@@ -15,8 +15,8 @@ The code is tested in python environment environment-history.yml
 ## Contents
 
 - [Overview](#overview)
-- [Data type for DKI](#Data-type-for-DKI)
-- [How the use the DKI framework](#How-the-use-the-DKI-framework)
+- [Data type for DKO](#Data-type-for-DKO)
+- [How the use the DKO framework](#How-the-use-the-DKO-framework)
 
 # Overview
 
@@ -24,7 +24,7 @@ Gene expression data is essential for understanding how genes are regulated and 
 
 
 # Data type for DKO
-## (1) Ptrain.csv: matrix of single-cell data of size N*M, where N is the number of gene and M is the cell size (without header).
+## 1. Ptrain.csv: matrix of single-cell data of size N*M, where N is the number of gene and M is the cell size (without header).
 
 |           | cell 1 | cell 2 | cell 3 | 
 |-----------|----------|----------|----------|
@@ -34,9 +34,13 @@ Gene expression data is essential for understanding how genes are regulated and 
 | gene 4 | 0.3      | 0        | 0.14     |
 
 
-## (2) Virtual KO experiment: thought experiemt was realized by removing each present gene in each sample. This will generated two data type.
+## 2. Virtual KO experiment: thought experiemt was realized by removing each present gene in each sample. This will generated two data type.
 
-* Ptest.csv: matrix of perturbed genes collection of size N*C, where N is the number of genes and C is the total perturbed cells (without header).
+- **Ptest.csv**: perturbation matrix of size `N × C` (no header), where `N` is the number of genes (rows) and `C` is the number of perturbed cells / KO events (columns). Each column represents a single-gene KO in a specific cell.
+
+
+
+
 
 |           | cell 1 | cell 2 | cell 3 | cell 4 | cell 5 | cell 6 | cell 7 | cell 8 | cell 9 |
 |-----------|----------|----------|----------|----------|----------|----------|----------|----------|----------|
@@ -45,7 +49,7 @@ Gene expression data is essential for understanding how genes are regulated and 
 | gene 3 | 0        | 0           | 0        | 0.55     | 0.55     | 0        | 0.1      |0        | 0.1      | 
 | gene 4 | 0.3      | 0.3         | 0        | 0        | 0        | 0        | 0.14     |0.14     | 0       | 
 
-* Recorder: Records the gene_id of knocked out in cell_id
+- **Recorder**: `C × 2` table with columns `gene_id` and `cell_id`. Each row `[gene_id, cell_id]` records that the gene is knocked out in that cell.
 
 |gene_id           | cell_id |
 |-----------|----------|
@@ -65,7 +69,7 @@ Gene expression data is essential for understanding how genes are regulated and 
 ## Step 1: Predict gene expression profile using gene assemblage
 Open `Learn_Mapping_and_Predicting_gene_profile.ipynb` and load `Ptrain.csv` as input. The pipeline splits the cells in Ptrain.csv into an 80/20 train–test set (80% training, 20% testing), trains the model on the training set, and outputs predicted gene expression profiles for the held-out 20% test cells.
 
-## Step 2: Compute the gene KO impact score
+## Step 2: Predict and compute the gene KO impact score
 Run `Predicting_KO_impact` with `Ptrain.csv` as input. The pipeline will:
 1. Construct **Ptest** (and **Ztest**) and a **Recorder** matrix from `Ptrain.csv`.
 2. Train the model on **Ptrain.csv**.  
