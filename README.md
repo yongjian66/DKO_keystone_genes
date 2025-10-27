@@ -3,7 +3,7 @@
 
 This is a Pytorch implementation of DKO, as described in our manuscript:
 
-Yongjian He, Vered Klein, Orr Levy, Xu-Wen Wang, [Predicting cell-specific gene expression profile and knockout impact through deep learning]. [bioRxiv] (https://arxiv.org/abs/2510.03359). 
+Yongjian He, Vered Klein, Orr Levy, Xu-Wen Wang, [Predicting cell-specific gene expression profile and knockout impact through deep learning] (arXiv https://arxiv.org/abs/2510.03359). 
 
 <p align="center">
   <img src="DKO.png" alt="demo" width="600" height="470" style="display: block; margin: 0 auto;">
@@ -15,111 +15,77 @@ The code is tested in python environment environment-history.yml
 ## Contents
 
 - [Overview](#overview)
-- [Repo Contents](#repo-contents)
 - [Data type for DKI](#Data-type-for-DKI)
 - [How the use the DKI framework](#How-the-use-the-DKI-framework)
 
 # Overview
 
-Previous studies suggested that microbial communities harbor keystone species whose removal can cause a dramatic shift in microbiome structure and functioning. Yet, an efficient method to systematically identify keystone species in microbial communities is still lacking. This is mainly due to our limited knowledge of microbial dynamics and the experimental and ethical difficulties of manipulating microbial communities. Here, we propose a Data-driven Keystone species Identification (DKI) framework based on deep learning to resolve this challenge. Our key idea is to implicitly learn the assembly rules of microbial communities from a particular habitat by training a deep learning model using microbiome samples collected from this habitat. The well-trained deep learning model enables us to quantify the community-specific keystoneness of each species in any microbiome sample from this habitat by conducting a thought experiment on species removal. We systematically validated this DKI framework using synthetic data generated from a classical population dynamics model in community ecology. We then applied DKI to analyze human gut, oral microbiome, soil, and coral microbiome data. We found that those taxa with high median keystoneness across different communities display strong community specificity, and many of them have been reported as keystone taxa in literature. The presented DKI framework demonstrates the power of machine learning in tackling a fundamental problem in community ecology, paving the way for the data-driven management of complex microbial communities.
+Gene expression data is essential for understanding how genes are regulated and interact within biological systems, providing insights into disease pathways and potential therapeutic targets. Gene knockout has proven to be a fundamental technique in molecular biology, allowing the investigation of the function of specific genes in an organism, as well as in specific cell types. However, gene expression patterns are quite heterogeneous in single-cell transcriptional data from a uniform environment, representing different cell states, which produce cell-type and cell-specific gene knockout impacts. A computational method that can predict the single-cell resolution knockout impact is still lacking. Here, we present a data-driven framework for learning the mapping between gene expression profiles derived from gene assemblages, enabling the accurate prediction of perturbed expression profiles following knockout (KO) for any cell, without relying on prior perturbed data. We systematically validated our framework using synthetic data generated from gene regulatory dynamics models, two mouse knockout single-cell datasets, and high-throughput in vitro CRISPRi Perturb-seq data. Our results demonstrate that the framework can accurately predict both expression profiles and KO effects at the single-cell level. Our approach provides a generalizable tool for inferring gene function at single-cell resolution, offering new opportunities to study genetic perturbations in contexts where large-scale experimental screens are infeasible.
 
 
-# Repo Contents
-(1) A synthetic dataset to test the Data-driven Keystone species Identification (DKI) framework.
+# Data type for DKO
+## (1) Ptrain.csv: matrix of single-cell data of size N*M, where N is the number of gene and M is the cell size (without header).
 
-(2) Python code to predict the species composition using species assemblage (cNODE2) and R code to compute keystoneness.
+|           | cell 1 | cell 2 | cell 3 | 
+|-----------|----------|----------|----------|
+| gene 1 | 0.45     | 0.35     | 0.76     | 
+| gene 2 | 0.25     | 0.1      | 0        | 
+| gene 3 | 0        | 0.55     | 0.1        | 
+| gene 4 | 0.3      | 0        | 0.14     |
 
-(3) Predicted species composition after removing each present species in each sample.
 
-# Data type for DKI
-## (1) Ptrain.csv: matrix of taxanomic profile of size N*M, where N is the number of taxa and M is the sample size (without header).
+## (2) Virtual KO experiment: thought experiemt was realized by removing each present gene in each sample. This will generated two data type.
 
-|           | sample 1 | sample 2 | sample 3 | sample 4 |
-|-----------|----------|----------|----------|----------|
-| species 1 | 0.45     | 0.35     | 0.86     | 0.77     |
-| species 2 | 0.51     | 0        | 0        | 0        |
-| species 3 | 0        | 0.25     | 0        | 0        |
-| species 4 | 0        | 0        | 0.07     | 0        |
-| species 5 | 0        | 0        | 0        | 0.17     |
-| species 6 | 0.04     | 0.4      | 0.07     | 0.06     |
+* Ptest.csv: matrix of perturbed genes collection of size N*C, where N is the number of genes and C is the total perturbed cells (without header).
 
-## (2) Thought experiment: thought experiemt was realized by removing each present species in each sample. This will generated three data type.
+|           | cell 1 | cell 2 | cell 3 | cell 4 | cell 5 | cell 6 | cell 7 | cell 8 | cell 9 |
+|-----------|----------|----------|----------|----------|----------|----------|----------|----------|----------|
+| gene 1 | 0        | 0.45        | 0.45     | 0        | 0.35     | 0.35     |0         |0.76     | 0.76      | 
+| gene 2 | 0.25     | 0           | 0.25     | 0.1      | 0        | 0.1      | 0        |0        | 0        | 
+| gene 3 | 0        | 0           | 0        | 0.55     | 0.55     | 0        | 0.1      |0        | 0.1      | 
+| gene 4 | 0.3      | 0.3         | 0        | 0        | 0        | 0        | 0.14     |0.14     | 0       | 
 
-* Ztest.csv: matrix of perturbed species collection of size N*C, where N is the number of taxa and C is the total perturbed samples (without header).
+* Recorder: Records the gene_id of knocked out in cell_id
 
-|           | sample 1 | sample 2 | sample 3 | sample 4 | sample 5 | sample 6 | sample 7 | sample 8 | sample 9 | sample 10 | sample 11 | sample 12 |
-|-----------|----------|----------|----------|----------|----------|----------|----------|----------|----------|-----------|-----------|-----------|
-| species 1 | 0        | 1        | 1        | 0        | 1        | 1        | 0        | 1        | 1        | 0         | 1         | 1         |
-| species 2 | 1        | 0        | 1        | 0        | 0        | 0        | 0        | 0        | 0        | 0         | 0         | 0         |
-| species 3 | 0        | 0        | 0        | 1        | 0        | 1        | 0        | 0        | 0        | 0         | 0         | 0         |
-| species 4 | 0        | 0        | 0        | 0        | 0        | 0        | 1        | 0        | 1        | 0         | 0         | 0         |
-| species 5 | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 0        | 1         | 0         | 1         |
-| species 6 | 1        | 1        | 0        | 1        | 1        | 0        | 1        | 1        | 0        | 1         | 1         | 0         |
+|gene_id           | cell_id |
+|-----------|----------|
+| 1 | 1     | 
+| 2 | 1     | 
+| 4 | 1     | 
+| 1 | 2     | 
+| 2 | 2     | 
+| 3 | 2     | 
+| 1 | 3     | 
+| 3 | 3     | 
+| 4 | 3     | 
 
-* Species_id: a list indicating which species has been removed in each sample.
 
-| species |
-|---------|
-| 1       |
-| 2       |
-| 6       |
-| 1       |
-| 3       |
-| 6       |
-| 1       |
-| 4       |
-| 6       |
-| 1       |
-| 5       |
-| 6       |
 
-* Sample_id: a list indicating which sample that the species been removed.
+# How to use the DKO framework
+## Step 1: Predict gene expression profile using gene assemblage
+Open `Learn_Mapping_and_Predicting_gene_profile.ipynb` and load `Ptrain.csv` as input. The pipeline splits the cells in Ptrain.csv into an 80/20 train–test set (80% training, 20% testing), trains the model on the training set, and outputs predicted gene expression profiles for the held-out 20% test cells.
 
-| sample |
-|--------|
-| 1      |
-| 1      |
-| 1      |
-| 2      |
-| 2      |
-| 2      |
-| 3      |
-| 3      |
-| 3      |
-| 4      |
-| 4      |
-| 4      |
+## Step 2: Compute the gene KO impact score
+Run `Predicting_KO_impact` with `Ptrain.csv` as input. The pipeline will:
+1. Construct **Ptest** (and **Ztest**) and a **Recorder** matrix from `Ptrain.csv`.
+2. Train the model on **Ptrain.csv**.  
+3. Apply the trained model to **Ztest** to predict the post-KO profiles.
+4. Computing gene KO impact by comparing the profile befor and after KO
+5. **Outputs:** **KO impact scores** for each `(gene, cell)` pair.
 
-# How to use the DKI framework
-## Step 1: Predict species compostion using perturbed species assemblage
-Run Python code "DKI.py" by taking Ptrain.csv and Ztest.csv as input will output the predicted microbiome composition using perturbed species colloction matrix Ztest.csv.
-The output file qtst.csv:
+The output file:
+|gene_id   | cell_id | impact score |
+|-----------|----------|----------|
+| 1 | 1     | 0.044832664|
+| 2 | 1     | 0.061767839
+| 4 | 1     | 0.039787205
+| 1 | 2     | 0.032485329
+| 2 | 2     | 0.049242764
+| 3 | 2     | 0.046929884
+| 1 | 3     | 0.036644731
+| 3 | 3     | 0.059429204
+| 4 | 3     | 0.017946411
 
-|           | sample 1  | sample 2  | sample 3  | sample 4   | sample 5   | sample 6   | sample 7   | sample 8  | sample 9  | sample 10  | sample 11  | sample 12 |
-|-----------|-----------|-----------|-----------|------------|------------|------------|------------|-----------|-----------|------------|------------|-----------|
-| species 1 | 0.0000000 | 0.000000  | 0.0000000 | 0.92458308 | 0.92458308 | 0.92458308 | 0.9245831  | 0.4725695 | 0.4729691 | 0.91488211 | 0.8053058  | 0.8053058 |
-| species 2 | 0.8315174 | 0.0000000 | 0.000000  | 0.0000000  | 0.00000000 | 0.00000000 | 0.00000000 | 0.0000000 | 0.5274305 | 0.0000000  | 0.00000000 | 0.0000000 |
-| species 3 | 0.0000000 | 0.8287832 | 0.000000  | 0.0000000  | 0.00000000 | 0.00000000 | 0.00000000 | 0.0000000 | 0.0000000 | 0.5270309  | 0.00000000 | 0.0000000 |
-| species 4 | 0.0000000 | 0.0000000 | 0.212941  | 0.0000000  | 0.00000000 | 0.00000000 | 0.00000000 | 0.0000000 | 0.0000000 | 0.0000000  | 0.08511789 | 0.0000000 |
-| species 5 | 0.0000000 | 0.0000000 | 0.000000  | 0.4444696  | 0.00000000 | 0.00000000 | 0.00000000 | 0.0000000 | 0.0000000 | 0.0000000  | 0.00000000 | 0.1946942 |
-| species 6 | 0.1684826 | 0.1712168 | 0.787059  | 0.5555304  | 0.07541692 | 0.07541692 | 0.07541692 | 0.0754169 | 0.0000000 | 0.0000000  | 0.00000000 | 0.0000000 |
 
-## Step 2: Compute the keystoneness
-Run R code Keystoneness_computing.R to compute the keystonenss of each present in each sample. The output file:
+Each row represent the KO impact score of a gene in a particular cell.
 
-| keystoneness | sample | species |
-|--------------|--------|---------|
-| 5.576585e-02 | 1      | 1       |
-| 5.680769e-02 | 2      | 1       |
-| 4.133107e-02 | 3      | 1       |
-| 6.768209e-02 | 4      | 1       |
-| 3.948267e-05 | 1      | 2       |
-| 4.027457e-05 | 2      | 3       |
-| 7.398025e-05 | 3      | 4       |
-| 5.262661e-05 | 4      | 5       |
-| 4.576021e-03 | 1      | 6       |
-| 3.072820e-03 | 2      | 6       |
-| 7.672017e-03 | 3      | 6       |
-| 1.067806e-02 | 4      | 6       |
-
-Each row represent the keystonenes of a species in a particular sample.
