@@ -6,7 +6,7 @@ This is a Pytorch implementation of DKO, as described in our manuscript:
 Yongjian He, Vered Klein, Orr Levy, Xu-Wen Wang, [Predicting cell-specific gene expression profile and knockout impact through deep learning]. [bioRxiv] (https://arxiv.org/abs/2510.03359). 
 
 <p align="center">
-  <img src="Paper/DKI.png" alt="demo" width="600" height="470" style="display: block; margin: 0 auto;">
+  <img src="DKO.png" alt="demo" width="600" height="470" style="display: block; margin: 0 auto;">
 </p>
 
 
