@@ -1,0 +1,7 @@
+name: forpytorch
+channels:
+  - defaults
+dependencies:
+  - python=3.8
+  - ipykernel
+prefix: E:\Software of path\Anaconda3\envs\forpytorch
