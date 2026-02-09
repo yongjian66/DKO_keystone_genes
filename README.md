@@ -60,7 +60,7 @@ Thought experiemt was realized by removing single present gene in cell samples. 
 | gene 4 | 1      | 1         | 1        | 0        | ...       | 0        | 
 | gene 5 | 1      | 1         | 1        | 0        | ...        | 1        |
 
-- **Recorder for single gene KO**: `C × 2` table with columns `gene_id` and `cell_id`. Each row `[gene_id, cell_id]` records that the gene is knocked out in that cell.
+- **Recorder.csv**: A `C × 2` table records single-gene KO events. Each row `[gene_id, cell_id]` records that the gene_id is knocked out in that cell_id.
 
 |gene_id           | cell_id |
 |-----------|----------|
@@ -94,7 +94,7 @@ A virtual double-gene KO experiment is constructed by knocking out two present g
 | gene 4    | 1      | 0         | 0        | 0        | ...        | 0        | 
 | gene 5    | 1      | 1       | 0        | 1        | ...        | 0        |
 
-- **Recorder for double gene KO**: `C × 3` table with columns `gene_id` and `cell_id`. Each row `[gene1_id, gene2_id,cell_id]` records that the gene pair is knocked out in that cell.
+- **Recorder_doubleKO.csv**: A `C × 3` table records double-gene KO events. Each row `[gene1_id, gene2_id,cell_id]` indicates that the gene pair (gene1_id, gene2_id) is knocked out in that cell_id.
 
 |gene1_id   | gene2_id | cell_id |
 |-----------|----------|----------|
