@@ -99,11 +99,11 @@ Similarity to Step2, Run `Predicting_double_gene_KO_impact.ipynb` with `Ptrain.c
 For example：
 | gene1_id | gene2_id | cell_id | k_pred   |
 |---------:|---------:|--------:|---------:|
-| 4        | 16       | 425     | 0.076976 |
-| 8        | 45       | 182     | 0.045585 |
-| 36       | 84       | 321     | 0.055198 |
-| 71       | 88       | 352     | 0.027712 |
-| 10       | 63       | 429     | 0.065817 |
+| 1        | 2       | 1     | 0.076976 |
+| 2        | 3       | 2     | 0.045585 |
+| 1       | 4       | 3     | 0.055198 |
+| 1       | 3       | 1     | 0.027712 |
+| 2       | 3       | 4     | 0.065817 |
 | …        | …        | …       | …        |
 
 Each row reports the predicted KO impact score of the gene pair (gene1_id, gene2_id) in cell_id.
