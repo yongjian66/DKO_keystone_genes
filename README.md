@@ -69,8 +69,8 @@ Gene expression data is essential for understanding how genes are regulated and 
 ## Step 1: Predict gene expression profile using gene assemblage
 Open `Learn_Mapping_and_Predicting_gene_profile.ipynb` and load `Ptrain.csv` as input. The pipeline splits the cells in Ptrain.csv into an 80/20 train–test set (80% training, 20% testing), trains the model on the training set, and outputs predicted gene expression profiles for the held-out 20% test cells.
 
-## Step 2: Predict and compute the gene KO impact score
-Run `Predicting_KO_impact` with `Ptrain.csv` as input. The pipeline will:
+## Step 2: Single-gene KO impact prediction
+Run `Predicting_KO_impact.ipynb` with `Ptrain.csv` as input. The pipeline will:
 1. Construct **Ptest** (and **Ztest**) and a **Recorder** matrix from `Ptrain.csv`.
 2. Train the model on **Ptrain.csv**.  
 3. Apply the trained model to **Ztest** to predict the post-KO profiles.
@@ -89,7 +89,23 @@ The output file:
 | 1 | 3     | 0.036644731
 | 3 | 3     | 0.059429204
 | 4 | 3     | 0.017946411
+Each row reports the predicted KO impact score of gene_id in cell_id.
+By default, **Ptest** and **Recorder** files enumerate perturbations across the entire input matrix (i.e., applying KO perturbations to all genes across all cells). You may also use your own single-cell expression matrix as `Ptrain.csv`. Depending on your needs, you can optionally construct **Ptest** and **Recorder** for a selected subset of genes/cells and run KO prediction only on those perturbations.
+
+## Step 3: Double-gene KO impact prediction
+Similarity to Step2, Run `Predicting_double_gene_KO_impact.ipynb` with `Ptrain.csv` as input. The workflow is the same as Step 2, except that each perturbation knocks out two genes. The output is a KO impact score for each (gene1_id, gene2_id, cell_id) triple.
+For example：
+| gene1_id | gene2_id | cell_id | k_pred   |
+|---------:|---------:|--------:|---------:|
+| 4        | 16       | 425     | 0.076976 |
+| 8        | 45       | 182     | 0.045585 |
+| 36       | 84       | 321     | 0.055198 |
+| 71       | 88       | 352     | 0.027712 |
+| 10       | 63       | 429     | 0.065817 |
+| …        | …        | …       | …        |
+
+Each row reports the predicted KO impact score of the gene pair (gene1_id, gene2_id) in cell_id.
 
 
-Each row represent the KO impact score of a gene in a particular cell.
+
 
