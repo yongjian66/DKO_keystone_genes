@@ -89,6 +89,7 @@ The output file:
 | 1 | 3     | 0.036644731
 | 3 | 3     | 0.059429204
 | 4 | 3     | 0.017946411
+
 Each row reports the predicted KO impact score of gene_id in cell_id.
 By default, **Ptest** and **Recorder** files enumerate perturbations across the entire input matrix (i.e., applying KO perturbations to all genes across all cells). You may also use your own single-cell expression matrix as `Ptrain.csv`. Depending on your needs, you can optionally construct **Ptest** and **Recorder** for a selected subset of genes/cells and run KO prediction only on those perturbations.
 
