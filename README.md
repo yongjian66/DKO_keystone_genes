@@ -24,7 +24,7 @@ We present a data-driven framework for identifying high-impact genes and predict
 
 
 # Data type for DKO
-## 1. Ptrain.csv: Ptrain.csv: DKO input expression matrix
+## 1. Ptrain.csv: DKO input expression matrix
 DKO only requires a gene expression matrix as input. Ptrain.csv is an N × M single-cell expression matrix (no header), where N is the number of genes and M is the number of cells.
 
 |           | cell 1 | cell 2 | cell 3 | 
