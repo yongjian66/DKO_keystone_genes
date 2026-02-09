@@ -24,7 +24,8 @@ We present a data-driven framework for identifying high-impact genes and predict
 
 
 # Data type for DKO
-## 1. Ptrain.csv: DKO only need gene expression data. matrix of single-cell data of size N*M, where N is the number of gene and M is the cell size (without header).
+## 1. Ptrain.csv: Ptrain.csv: DKO input expression matrix
+DKO only requires a gene expression matrix as input. Ptrain.csv is an N × M single-cell expression matrix (no header), where N is the number of genes and M is the number of cells.
 
 |           | cell 1 | cell 2 | cell 3 | 
 |-----------|----------|----------|----------|
@@ -40,7 +41,7 @@ We present a data-driven framework for identifying high-impact genes and predict
 
 
 
-|           | perturb cell 1 | perturb cell 2 | perturb cell 3 | cperturb ell 4 | ... | perturb cell C |
+|           | perturb cell 1 | perturb cell 2 | perturb cell 3 | perturb cell 4 | ... | perturb cell C |
 |-----------|----------|----------|----------|----------|----------|----------|
 | gene 1 | 0        | 0.15        | 0.35     | 0.35        | ...     | 0.56     |
 | gene 2 | 0.25     | 0           | 0.0     | 0.1      |...       | 0      | 
@@ -50,7 +51,7 @@ We present a data-driven framework for identifying high-impact genes and predict
 
 - **Ztest.csv**: Ztest file is a binarized version of Ptest (same shape, no header). For each entry, Ztest = 1 if the corresponding gene is expressed/present in Ptest (i.e., expression > 0), and Ztest = 0 otherwise.
 
-|           | perturb cell 1 | perturb cell 2 | perturb cell 3 | cperturb ell 4 | ... | perturb cell C |
+|           | perturb cell 1 | perturb cell 2 | perturb cell 3 | perturb cell 4 | ... | perturb cell C |
 |-----------|----------|----------|----------|----------|----------|----------|
 | gene 1 | 0        | 1        | 1     | 1        | ...     | 1     |
 | gene 2 | 1     | 0           | 0     | 1      |...       | 0      | 
