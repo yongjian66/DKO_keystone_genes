@@ -10,7 +10,7 @@ Yongjian He, Vered Klein, Orr Levy, Xu-Wen Wang, [Predicting single-cell knockou
 </p>
 
 
-The code is tested in python environment environment-history.yml
+The code is tested in python environment: environment-history.yml
 
 ## Contents
 
