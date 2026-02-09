@@ -3,7 +3,7 @@
 
 This is a Pytorch implementation of DKO, as described in our manuscript:
 
-Yongjian He, Vered Klein, Orr Levy, Xu-Wen Wang, [Predicting cell-specific gene expression profile and knockout impact through deep learning] (arXiv https://arxiv.org/abs/2510.03359). 
+Yongjian He, Vered Klein, Orr Levy, Xu-Wen Wang, [Predicting single-cell knockout responses from unperturbed transcriptomes through deep learning] (arXiv https://arxiv.org/abs/2510.03359). 
 
 <p align="center">
   <img src="DKO.png" alt="demo" width="600" height="470" style="display: block; margin: 0 auto;">
@@ -20,7 +20,7 @@ The code is tested in python environment environment-history.yml
 
 # Overview
 
-Gene expression data is essential for understanding how genes are regulated and interact within biological systems, providing insights into disease pathways and potential therapeutic targets. Gene knockout has proven to be a fundamental technique in molecular biology, allowing the investigation of the function of specific genes in an organism, as well as in specific cell types. However, gene expression patterns are quite heterogeneous in single-cell transcriptional data from a uniform environment, representing different cell states, which produce cell-type and cell-specific gene knockout impacts. A computational method that can predict the single-cell resolution knockout impact is still lacking. Here, we present a data-driven framework for learning the mapping between gene expression profiles derived from gene assemblages, enabling the accurate prediction of perturbed expression profiles following knockout (KO) for any cell, without relying on prior perturbed data. We systematically validated our framework using synthetic data generated from gene regulatory dynamics models, two mouse knockout single-cell datasets, and high-throughput in vitro CRISPRi Perturb-seq data. Our results demonstrate that the framework can accurately predict both expression profiles and KO effects at the single-cell level. Our approach provides a generalizable tool for inferring gene function at single-cell resolution, offering new opportunities to study genetic perturbations in contexts where large-scale experimental screens are infeasible.
+We present a data-driven framework for identifying high-impact genes and predicting transcriptional outcomes of single and multi-gene knockouts. It bypasses reconstruction of detailed gene-to-gene interactions by learning mappings between gene assemblages and expression profiles directly from natural single-cell RNA-seq data. The approach requires no prior biological knowledge or perturbed training datasets. Across synthetic benchmarks, CRISPRi Perturb-seq, and mouse knockout atlases, it accurately predicts expression changes and outperforms existing methods in single-gene/two-gene perturbation effects prediction at single-cell resolution, enabling genome-scale inference of gene function beyond experimental perturbation screens.
 
 
 # Data type for DKO
