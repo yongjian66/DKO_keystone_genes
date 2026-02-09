@@ -28,11 +28,11 @@ We present a data-driven framework for identifying high-impact genes and predict
 
 |           | cell 1 | cell 2 | cell 3 | 
 |-----------|----------|----------|----------|
-| gene 1 | 0.45     | 0.35     | 0.76     | 
+| gene 1 | 0.15     | 0.35     | 0.56     | 
 | gene 2 | 0.25     | 0.1      | 0        | 
-| gene 3 | 0        | 0.55     | 0.1        | 
+| gene 3 | 0        | 0.35     | 0.1        | 
 | gene 4 | 0.3      | 0        | 0.14     |
-
+| gene 5 | 0.3      | 0.2        | 0.2     |
 
 ## 2. Virtual single-gene KO experiment: thought experiemt was realized by removing each present gene in each sample. This will generated two data type.
 
@@ -42,13 +42,13 @@ We present a data-driven framework for identifying high-impact genes and predict
 
 
 
-|           | cell 1 | cell 2 | cell 3 | cell 4 | cell 5 | cell 6 | cell 7 | cell 8 | cell 9 |
-|-----------|----------|----------|----------|----------|----------|----------|----------|----------|----------|
-| gene 1 | 0        | 0.45        | 0.45     | 0        | 0.35     | 0.35     |0         |0.76     | 0.76      | 
-| gene 2 | 0.25     | 0           | 0.25     | 0.1      | 0        | 0.1      | 0        |0        | 0        | 
-| gene 3 | 0        | 0           | 0        | 0.55     | 0.55     | 0        | 0.1      |0        | 0.1      | 
-| gene 4 | 0.3      | 0.3         | 0        | 0        | 0        | 0        | 0.14     |0.14     | 0       | 
-
+|           | cell 1 | cell 2 | cell 3 | cell 4 | ... | cell N |
+|-----------|----------|----------|----------|----------|----------|----------|
+| gene 1 | 0        | 0.45        | 0.45     | 0        | ...     | 0.35     |
+| gene 2 | 0.25     | 0           | 0.25     | 0.1      |...       | 0.1      | 
+| gene 3 | 0        | 0           | 0        | 0.55     | ...     | 0        | 
+| gene 4 | 0.3      | 0.3         | 0        | 0        | ...       | 0        | 
+| gene 5 | 0.3      | 0.3         | 0        | 0        | ...        | 0        |
 - **Recorder for single gene KO**: `C × 2` table with columns `gene_id` and `cell_id`. Each row `[gene_id, cell_id]` records that the gene is knocked out in that cell.
 
 |gene_id           | cell_id |
