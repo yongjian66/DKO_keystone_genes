@@ -92,7 +92,7 @@ The output file:
 
 Each row reports the predicted KO impact score of gene_id in cell_id.
 
-By default, **Ptest** and **Recorder** files enumerate perturbations across the entire input matrix (i.e., applying KO perturbations to all genes across all cells). You may also use your own single-cell expression matrix as `Ptrain.csv`. Depending on your needs, you can optionally construct **Ptest** and **Recorder** for a selected subset of genes/cells and run KO prediction only on those perturbations.
+By default, **Ptest** and **Recorder** files enumerate perturbations across the entire input matrix (i.e., applying KO perturbations to all expressed genes across all cells). You may also use your own single-cell expression matrix as `Ptrain.csv`. Depending on your needs, you can optionally construct **Ptest** and **Recorder** for a selected subset of genes/cells and run KO prediction only on those perturbations.
 
 ## Step 3: Double-gene KO impact prediction
 Similarity to Step2, Run `Predicting_double_gene_KO_impact.ipynb` with `Ptrain.csv` as input. The workflow is the same as Step 2, except that each perturbation knocks out two genes. The output is a KO impact score for each (gene1_id, gene2_id, cell_id) triple.
