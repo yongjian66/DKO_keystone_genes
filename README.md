@@ -36,7 +36,7 @@ DKO only requires a gene expression matrix as input. Ptrain.csv is an N × M sin
 | gene 5 | 0.3      | 0.2        | 0.2     |
 
 ## 2. Virtual single-gene KO experiment
-Thought experiemt was realized by removing single present gene in cell samples. This will generated two data type.
+Thought experiemt was realized by removing single present gene in cell samples. This will generated three data type.
 
 - **Ptest.csv**: perturbation matrix of size `N × C` (no header), where `N` is the number of genes (rows) and `C` is the number of perturbed cells / KO events (columns). Each column represents a single-gene KO in a specific cell.
 
