@@ -38,7 +38,7 @@ DKO only requires a gene expression matrix as input. Ptrain.csv is an N × M sin
 ## 2. Virtual single-gene KO experiment
 Thought experiemt was realized by removing single present gene in cell samples. This will generated three data type.
 
-- **Ptest.csv**: perturbation matrix of size `N × C` (no header), where `N` is the number of genes (rows) and `C` is the number of perturbed cells / KO events (columns). Each column represents a single-gene KO in a specific cell.
+- **Ptest.csv**: perturbation matrix of size `N × C`, where `N` is the number of genes (rows) and `C` is the number of perturbed cells / KO events (columns). Each column represents a single-gene KO in a specific cell.
 
 
 
@@ -50,7 +50,7 @@ Thought experiemt was realized by removing single present gene in cell samples. 
 | gene 4 | 0.3      | 0.3         | 0.35        | 0        | ...       | 0        | 
 | gene 5 | 0.3      | 0.3         | 0.2        | 0        | ...        | 0.2        |
 
-- **Ztest.csv**: Ztest file is a binarized version of Ptest (same shape, no header). For each entry, Ztest = 1 if the corresponding gene is expressed/present in Ptest (i.e., expression > 0), and Ztest = 0 otherwise.
+- **Ztest.csv**: Ztest file is a binarized version of Ptest (same shape). For each entry, Ztest = 1 if the corresponding gene is expressed/present in Ptest (i.e., expression > 0), and Ztest = 0 otherwise.
 
 |           | perturb cell 1 | perturb cell 2 | perturb cell 3 | perturb cell 4 | ... | perturb cell C |
 |-----------|----------|----------|----------|----------|----------|----------|
@@ -74,7 +74,7 @@ Thought experiemt was realized by removing single present gene in cell samples. 
 ## 3. Virtual double-gene KO experiment
 A virtual double-gene KO experiment is constructed by knocking out two present genes in the same cell (i.e., setting both genes to zero for that cell profile). This generates:
 
-- **Ptest_doubleKO.csv**: perturbation matrix of size `N × C` (no header), where `N` is the number of genes (rows) and `C` is the number of perturbed cells / KO events (columns). Each column represents a two-gene KO in a specific cell.
+- **Ptest_doubleKO.csv**: perturbation matrix of size `N × C`, where `N` is the number of genes (rows) and `C` is the number of perturbed cells / KO events (columns). Each column represents a two-gene KO in a specific cell.
 
 |           | perturb cell 1 | perturb cell 2 | perturb cell 3 | perturb cell 4 | ... | perturb cell C |
 |-----------|----------|----------|----------|----------|----------|----------|
@@ -84,7 +84,7 @@ A virtual double-gene KO experiment is constructed by knocking out two present g
 | gene 4    | 0.3      | 0         | 0        | 0        | ...        | 0        | 
 | gene 5    | 0.3      | 0.2       | 0        | 0.2        | ...        | 0        |
 
-- **Ztest_doubleKO.csv**: Ztest_doubleKO is a binarized version of Ptest_doubleKO (same shape, no header).
+- **Ztest_doubleKO.csv**: Ztest_doubleKO is a binarized version of Ptest_doubleKO (same shape).For each entry, Ztest_doubleKO = 1 if the corresponding gene is expressed/present in Ptest_doubleKO (i.e., expression > 0), and Ztest = 0 otherwise.
 
 |           | perturb cell 1 | perturb cell 2 | perturb cell 3 | perturb cell 4 | ... | perturb cell C |
 |-----------|----------|----------|----------|----------|----------|----------|
