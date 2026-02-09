@@ -24,7 +24,7 @@ We present a data-driven framework for identifying high-impact genes and predict
 
 
 # Data type for DKO
-## 1. Ptrain.csv: matrix of single-cell data of size N*M, where N is the number of gene and M is the cell size (without header).
+## 1. Ptrain.csv: DKO only need gene expression data. matrix of single-cell data of size N*M, where N is the number of gene and M is the cell size (without header).
 
 |           | cell 1 | cell 2 | cell 3 | 
 |-----------|----------|----------|----------|
@@ -34,7 +34,7 @@ We present a data-driven framework for identifying high-impact genes and predict
 | gene 4 | 0.3      | 0        | 0.14     |
 
 
-## 2. Virtual KO experiment: thought experiemt was realized by removing each present gene in each sample. This will generated two data type.
+## 2. Virtual single-gene KO experiment: thought experiemt was realized by removing each present gene in each sample. This will generated two data type.
 
 - **Ptest.csv**: perturbation matrix of size `N × C` (no header), where `N` is the number of genes (rows) and `C` is the number of perturbed cells / KO events (columns). Each column represents a single-gene KO in a specific cell.
 
@@ -49,7 +49,7 @@ We present a data-driven framework for identifying high-impact genes and predict
 | gene 3 | 0        | 0           | 0        | 0.55     | 0.55     | 0        | 0.1      |0        | 0.1      | 
 | gene 4 | 0.3      | 0.3         | 0        | 0        | 0        | 0        | 0.14     |0.14     | 0       | 
 
-- **Recorder**: `C × 2` table with columns `gene_id` and `cell_id`. Each row `[gene_id, cell_id]` records that the gene is knocked out in that cell.
+- **Recorder for single gene KO**: `C × 2` table with columns `gene_id` and `cell_id`. Each row `[gene_id, cell_id]` records that the gene is knocked out in that cell.
 
 |gene_id           | cell_id |
 |-----------|----------|
@@ -59,9 +59,31 @@ We present a data-driven framework for identifying high-impact genes and predict
 | 1 | 2     | 
 | 2 | 2     | 
 | 3 | 2     | 
-| 1 | 3     | 
-| 3 | 3     | 
-| 4 | 3     | 
+| … | …     |
+
+## 3. Virtual double-gene KO experiment
+A virtual double-gene KO experiment is constructed by knocking out two present genes in the same cell (i.e., setting both genes to zero for that cell profile). This generates:
+
+- **Ptest_doubleKO.csv**: perturbation matrix of size `N × C` (no header), where `N` is the number of genes (rows) and `C` is the number of perturbed cells / KO events (columns). Each column represents a two-gene KO in a specific cell.
+
+|           | cell 1 | cell 2 | cell 3 | cell 4 | cell 5 | cell 6 | cell 7 | cell 8 | cell 9 |
+|-----------|----------|----------|----------|----------|----------|----------|----------|----------|----------|
+| gene 1 | 0        | 0.45        | 0.45     | 0        | 0.35     | 0.35     |0         |0.76     | 0.76      | 
+| gene 2 | 0.25     | 0           | 0.25     | 0.1      | 0        | 0.1      | 0        |0        | 0        | 
+| gene 3 | 0        | 0           | 0        | 0.55     | 0.55     | 0        | 0.1      |0        | 0.1      | 
+| gene 4 | 0.3      | 0.3         | 0        | 0        | 0        | 0        | 0.14     |0.14     | 0       | 
+
+- **Recorder for double gene KO**: `C × 3` table with columns `gene_id` and `cell_id`. Each row `[gene1_id, gene2_id,cell_id]` records that the gene pair is knocked out in that cell.
+
+|gene1_id   | gene2_id | cell_id |
+|-----------|----------|----------|
+| 1 | 2     | 1|
+| 2 | 1     | 2
+| 4 | 1     | 3
+| 1 | 2     | 4
+
+
+
 
 
 
