@@ -142,9 +142,9 @@ For example：
 | 1        | 2       | 1     | 0.076976 |
 | 1        | 2       | 2     | 0.045585 |
 | 4       | 1       | 3     | 0.055198 |
-| 3       | 3       | 3     | 0.027712 |
+| 3       | 2       | 2     | 0.027712 |
 | …        | …        | …       | …        |
-| 2       | 3       | 4     | 0.065817 |
+| 4       | 5       | 1     | 0.065817 |
 
 
 Each row reports the predicted KO impact score of the gene pair (gene1_id, gene2_id) in cell_id.
